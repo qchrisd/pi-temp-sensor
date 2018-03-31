@@ -13,7 +13,7 @@ now = time.strftime('%H:%M:%S')
 today = time.strftime('%Y-%m-%d')
 base_dir = '/sys/bus/w1/devices/'
 device_config = list()
-with open('/home/pi/devices.csv') as f:
+with open('/home/pi/pi-temp-sensor/devices.csv') as f:
 	device_config = list(csv.reader(f))
 device_config = device_config[1:]
 
@@ -52,7 +52,7 @@ def read_temps(file):
 # Write to a csv file
 header = ['Date', 'Name', 'Sensor', 'Temp C']
 for file in device_config:
-	with open('/home/pi/'+file[1]+'log.csv', 'a+') as f:
+	with open('/home/pi/pi-temp-sensor/logfiles/'+file[1]+'log.csv', 'a+') as f:
 		writer = csv.writer(f)
 		reader = csv.reader(f)
 		try:
