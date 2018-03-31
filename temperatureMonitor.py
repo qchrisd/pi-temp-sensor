@@ -50,7 +50,7 @@ def read_temps(file):
 #	print(today+' '+now+' '+row[0]+': '+str(read_temps(row[2])))
 
 # Write to a csv file
-header = ['Date', 'Name', 'Sensor', 'Temp C']
+header = ['Date', 'Time', 'Sensor', 'TempC']
 for file in device_config:
 	with open('/home/pi/pi-temp-sensor/logfiles/'+file[1]+'log.csv', 'a+') as f:
 		writer = csv.writer(f)
