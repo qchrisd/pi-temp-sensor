@@ -51,11 +51,14 @@ for row in device_config:
 
 # Write to a csv file
 header = ['Date', 'Name', 'Sensor', 'Temp C']
-with open('/home/pi/log.csv', 'a+') as f:
-	writer = csv.writer(f)
-	reader = csv.reader(f)
-	if next(reader) != header:
-		writer.writerow(header)
-	for row in device_config:
-		temp_row = today,now,row[0],read_temps(row[2])
+for file in device_config:
+	with open('/home/pi/'+file[1]+'log.csv', 'a+') as f:
+		writer = csv.writer(f)
+		reader = csv.reader(f)
+		try:
+			next(reader)
+		except:
+			writer.writerow(header)
+		temp_row = today,now,file[0],read_temps(file[2])
 		writer.writerow(temp_row)
+		print('written to /home/pi/'+file[1]+'log.csv')
