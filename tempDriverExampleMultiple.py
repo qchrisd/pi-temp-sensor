@@ -22,10 +22,10 @@ for row in device_config:
 		row.append(base_dir+row[1]+'/w1_slave')
 
 #debugging
-print("Config File Listings:")
-for row in device_config:
-	print(row)
-print
+#print("Config File Listings:")
+#for row in device_config:
+#	print(row)
+#print
 
 # Returns lines for a single file
 def read_temp_raw(file):
@@ -46,8 +46,8 @@ def read_temps(file):
 		return temp_c
 
 #debugging driver
-for row in device_config:
-	print(today+' '+now+' '+row[0]+': '+str(read_temps(row[2])))
+#for row in device_config:
+#	print(today+' '+now+' '+row[0]+': '+str(read_temps(row[2])))
 
 # Write to a csv file
 header = ['Date', 'Name', 'Sensor', 'Temp C']
@@ -61,4 +61,4 @@ for file in device_config:
 			writer.writerow(header)
 		temp_row = today,now,file[0],read_temps(file[2])
 		writer.writerow(temp_row)
-		print('written to /home/pi/'+file[1]+'log.csv')
+#		print('written to /home/pi/'+file[1]+'log.csv')
