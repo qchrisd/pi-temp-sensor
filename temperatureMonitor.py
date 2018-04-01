@@ -9,7 +9,7 @@ os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 
 # Initialize some globals
-now = time.strftime('%H:%M:%S')
+now = time.strftime('%H:%M')
 today = time.strftime('%Y-%m-%d')
 base_dir = '/sys/bus/w1/devices/'
 device_config = list()
@@ -52,7 +52,7 @@ def read_temps(file):
 # Write to a csv file
 header = ['Date', 'Time', 'Sensor', 'TempC']
 for file in device_config:
-	with open('/home/pi/pi-temp-sensor/logfiles/'+file[1]+'log.csv', 'a+') as f:
+	with open('/home/pi/logfiles/'+file[1]+'log.csv', 'a+') as f:
 		writer = csv.writer(f)
 		reader = csv.reader(f)
 		try:

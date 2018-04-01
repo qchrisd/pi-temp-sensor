@@ -5,9 +5,9 @@ import glob
 import time
 
 # Initialize some globals
-now = time.strftime('%H-%M-%S')
+now = time.strftime('%H-%M')
 today = time.strftime('%Y-%m-%d--')
-base_dir = '/home/pi/pi-temp-sensor/'
+base_dir = '/home/pi/'
 logs = glob.glob(base_dir+'logfiles/*')
 
 # Opens a new file based on the time of export and writes all log files in ./Logs into
