@@ -47,13 +47,33 @@ for f in device_config['file']:
 # Write to a csv file
 header = ['Date', 'Time', 'Sensor', 'TempC']
 for index, row in device_config.iterrows():
-	with open('/home/pi/pi-temp-sensor-pandas/logfiles/'+row['Serial Number']+'log.csv', 'a+') as f:
+	log_file = '/home/pi/pi-temp-sensor-pandas/logfiles/'+row['Serial Number']+'log.csv'
+	with open(log_file, 'a+') as f:
 		writer = csv.writer(f)
 		reader = csv.reader(f)
-		try:
+		temp_row = today,now,row['Name'],find_temp(row['file'])
+
+		#Second attempt to check for header line
+		#This functions as intended
+		if os.path.getsize(log_file) == 0:
+			writer.writerow(header)
+			writer.writerow(temp_row)
+			continue
+		current_data = pandas.read_csv(log_file)
+		print(current_data)
+
+		#This block is not acting correctly
+		#Continually writes the header even if the file exists
+'''		try:
 			next(reader)
 		except:
 			writer.writerow(header)
-		temp_row = today,now,row['Name'],find_temp(row['file'])
-		writer.writerow(temp_row)
-		print('written to /home/pi/pi-temp-sensor-pandas/logfiles'+row['Serial Number']+'log.csv')
+			writer.writerow(temp_row)
+			print('written to '+log_file)
+			continue
+'''
+#		if current_data.tail()['TempC'] <= (temp_row[3]-.5) or current_data.tail()['TempC'] >= (temp_row[3]+.5):
+#			writer.writerow(temp_row)
+#			print('written to /home/pi/pi-temp-sensor-pandas/logfiles'+row['Serial Number']+'log.csv')
+#		else:
+#			print('same temp')
