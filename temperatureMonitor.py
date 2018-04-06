@@ -14,8 +14,8 @@ import glob
 import time
 
 # Adds w1-gpio and w1-therm modules to kernel
-os.system('modprobe w1-gpio')
-os.system('modprobe w1-therm')
+#os.system('modprobe w1-gpio')
+#os.system('modprobe w1-therm')
 
 # Initialize some globals
 now = time.strftime('%H:%M')
@@ -69,6 +69,7 @@ for file in device_config:
 
 		# Collects the temperature and stores it as a writable line
 		temp_row = today,now,file[0],read_temps(file[2])
+#		print(temp_row)
 
 		# Checks if the file is empty
 		if os.path.getsize(current_file) == 0:
