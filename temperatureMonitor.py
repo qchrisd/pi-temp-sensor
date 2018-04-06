@@ -43,6 +43,11 @@ def find_temp(file):
 header = ['Date', 'Time', 'Sensor', 'TempC']
 for index, row in device_config.iterrows():
 
+	# Checks for the current device in the devices directory and continues to next device if not found
+	if not os.path.isfile(str(row['file'])):
+		print('Device '+str(row['Name'])+' in '+base_dir+'\n--Continuing to next sensor--')
+		continue
+
 	# Opens the log file for the current device
 	log_file = '/home/pi/pi-temp-sensor-pandas/logfiles/'+row['Serial Number']+'log.csv'
 	with open(log_file, 'a+') as f:
