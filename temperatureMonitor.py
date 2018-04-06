@@ -61,8 +61,9 @@ for file in device_config:
 	if not os.path.isfile(file[2]):
 		print('Device ' + file[1] + ' in ' + base_dir + '\n--Continuing to next sensor--')
 		continue
+
 	# Opens the log file for current device or creates one if blank
-	with open(current_file, 'a+', newline ='') as f:
+	with open(current_file, 'a+') as f:
 		writer = csv.writer(f)
 		reader = csv.reader(f)
 
