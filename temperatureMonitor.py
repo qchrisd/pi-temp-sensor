@@ -80,13 +80,11 @@ for file in device_config:
 		f.seek(0)
 		last_temp = float(list(reader)[-1][-1])
 		f.seek(0)
-#		print('Last recorded:\n'+str(list(reader)[-1]))
 
-		# Writes temperature if +/-0.5 degrees from last recorded temp
-		if (temp_row[3] > last_temp+.5) | (temp_row[3] < last_temp-.5):
+		# Writes temperature if +/-0.25 degrees from last recorded temp
+		if (temp_row[3] > last_temp+.25) | (temp_row[3] < last_temp-.25):
 			writer.writerow(temp_row)
-#			print('written')
+			print(temp_row)
 		else:
 			continue
 #			print('Current temp: '+str(temp_row[3])+' ---not written---\n')
-#		print('written to /home/pi/'+file[1]+'log.csv')
