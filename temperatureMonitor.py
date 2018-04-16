@@ -51,6 +51,10 @@ def read_temps(file):
 		return temp_c
 
 # Drives data collection
+# Checks for logfiles directory. If it doesn't exist it is created
+if not os.path.isdir('/home/pi/logfiles/'):
+	os.mkdir('logfiles')
+
 # Write to a csv file
 header = ['Date', 'Time', 'Sensor', 'TempC']
 
