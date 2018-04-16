@@ -72,7 +72,7 @@ for file in device_config:
 		reader = csv.reader(f)
 
 		# Collects the temperature and stores it as a writable line
-		temp_row = today,now,file[0],read_temps(file[-1])-float(file[2])
+		temp_row = today,now,file[0],read_temps(file[-1])+float(file[2])
 #		print(temp_row)
 
 		# Checks if the file is empty
