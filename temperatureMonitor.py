@@ -86,7 +86,7 @@ for file in device_config:
 		f.seek(0)
 
 		# Writes temperature if +/-0.25 degrees from last recorded temp
-		if (temp_row[3] >= last_temp+.25) | (temp_row[3] <= last_temp-.25):
+		if (temp_row[3] > last_temp+.25) | (temp_row[3] < last_temp-.25):
 			writer.writerow(temp_row)
 			print(temp_row)
 		else:
