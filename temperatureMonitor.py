@@ -58,8 +58,8 @@ header = ['Date', 'Time', 'Sensor', 'TempC']
 for file in device_config:
 	current_file = '/home/pi/logfiles/'+file[1]+'log.csv'
 	# Checks current device is connected to the pi
-	if not os.path.isfile(file[2]):
-		print('Device ' + file[1] + ' in ' + base_dir + '\n--Continuing to next sensor--')
+	if not os.path.isfile(file[-1]):
+		print('Device ' + file[1] + ' not found in ' + base_dir + '\n--Continuing to next sensor--')
 		continue
 
 	# Opens the log file for current device or creates one if blank
@@ -68,7 +68,7 @@ for file in device_config:
 		reader = csv.reader(f)
 
 		# Collects the temperature and stores it as a writable line
-		temp_row = today,now,file[0],read_temps(file[2])
+		temp_row = today,now,file[0],read_temps(file[-1])-float(file[2])
 #		print(temp_row)
 
 		# Checks if the file is empty
@@ -82,7 +82,7 @@ for file in device_config:
 		f.seek(0)
 
 		# Writes temperature if +/-0.25 degrees from last recorded temp
-		if (temp_row[3] > last_temp+.25) | (temp_row[3] < last_temp-.25):
+		if (temp_row[3] >= last_temp+.25) | (temp_row[3] <= last_temp-.25):
 			writer.writerow(temp_row)
 			print(temp_row)
 		else:
