@@ -58,6 +58,9 @@ if not os.path.isdir('/home/pi/logfiles'):
 # Write to a csv file
 header = ['Date', 'Time', 'Sensor', 'TempC']
 
+# Creates an output string to send via email
+output = list()
+
 # Iterates through the devices collected from the config file
 for file in device_config:
 	current_file = '/home/pi/logfiles/'+file[1]+'log.csv'
@@ -88,7 +91,9 @@ for file in device_config:
 		# Writes temperature if +/-0.25 degrees from last recorded temp
 		if (temp_row[3] > last_temp+.25) | (temp_row[3] < last_temp-.25):
 			writer.writerow(temp_row)
-			print(temp_row)
+			output.append(temp_row)
 		else:
 			continue
 #			print('Current temp: '+str(temp_row[3])+' ---not written---\n')
+if output:
+	print(*output,sep='\n')
