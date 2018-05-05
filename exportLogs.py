@@ -16,7 +16,7 @@ base_dir = '/home/pi/'
 logs = glob.glob(base_dir+'logfiles/*')
 
 # Checks for the target directory. If it does not exist it is created.
-if not os.path.isdir(base_dir+'exports/'):
+if not os.path.isdir('/home/pi/exports'):
 	os.mkdir('exports')
 
 # Opens a new file based on the time of export and writes all log files in ./Logs into
