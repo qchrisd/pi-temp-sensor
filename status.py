@@ -81,6 +81,7 @@ def getStatus():
 		print('\n-- New Unnamed Devices Found --\n')
 		for device in newDevs:
 			print(device)
+	print()
 
 # Displays the status of the probes connected to the host
 getStatus()

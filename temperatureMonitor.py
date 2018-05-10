@@ -42,8 +42,8 @@ def read_temp_raw(file):
 # Collects the temperature from single w-1 file
 def read_temps(file):
 	lines = read_temp_raw(file)
-	while lines[0].strip()[-3:] != 'YES':
-		lines = read_temp_raw(file)
+	if lines[0].strip()[-3:] != 'YES':
+		return('No Data')
 	equals_pos = lines[1].find('t=')
 	if equals_pos != -1:
 		temp_string = lines[1][equals_pos+2:]
@@ -66,7 +66,13 @@ for file in device_config:
 	current_file = '/home/pi/logfiles/'+file[1]+'log.csv'
 	# Checks current device is connected to the pi
 	if not os.path.isfile(file[-1]):
-		print('Device ' + file[1] + ' not found in ' + base_dir + '\n--Continuing to next sensor--')
+		print('Device ' + file[0] + ' (' + file[1] + ')  not found in ' + base_dir + '\n--Continuing to next sensor--')
+		continue
+
+	# Adds condition for invalid data to continue to the next sensor
+	tempFromDev = read_temps(file[-1])
+	if tempFromDev == 'No Data':
+		print('No good data found for ' + file[0] + ' (' + file[1] + '). Check connection')
 		continue
 
 	# Opens the log file for current device or creates one if blank
@@ -75,7 +81,7 @@ for file in device_config:
 		reader = csv.reader(f)
 
 		# Collects the temperature and stores it as a writable line
-		temp_row = today,now,file[0],read_temps(file[-1])+float(file[2])
+		temp_row = today,now,file[0],tempFromDev+float(file[2])
 #		print(temp_row)
 
 		# Checks if the file is empty
