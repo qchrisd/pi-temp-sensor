@@ -12,7 +12,7 @@ import csv
 import os
 import glob
 import time
-
+from exportLogs import *
 # Adds w1-gpio and w1-therm modules to kernel
 #os.system('modprobe w1-gpio')
 #os.system('modprobe w1-therm')
@@ -106,3 +106,4 @@ for file in device_config:
 
 if output:
 	print(*output,sep='\n')
+	exportLogs()
