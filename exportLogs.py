@@ -12,16 +12,17 @@ import time
 # Initialize some globals
 today = time.strftime('%Y%m%d-')
 now = time.strftime('%H%M')
-base_dir = '/home/pi/'
-logs = glob.glob(base_dir+'logfiles/*')
+from globalVars import base_dir, home_dir
+#home_dir = '/home/pi/'
+logs = glob.glob(home_dir+'logfiles/*')
 
 # Checks for the target directory. If it does not exist it is created.
-if not os.path.isdir('/home/pi/exports'):
+if not os.path.isdir(home_dir + 'exports'):
 	os.mkdir('exports')
 
 # Opens a new file based on the time of export and writes all log files in ./Logs into
 # one file located in the directory ./exports.
-with open(base_dir+'exports/'+today+now+'export.csv', 'a+') as f:
+with open(home_dir+'exports/'+today+now+'export.csv', 'a+') as f:
 	header = ['Date','Time','Sensor','TempC']
 	writer = csv.writer(f)
 	reader = csv.reader(f)

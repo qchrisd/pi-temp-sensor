@@ -20,11 +20,12 @@ import time
 # Initialize some globals
 now = time.strftime('%H:%M')
 today = time.strftime('%Y-%m-%d')
-base_dir = '/sys/bus/w1/devices/'
+from globalVars import base_dir, home_dir
+#base_dir = '/sys/bus/w1/devices/'
 
 # Collects the list of desired devices from the devices.csv file
 device_config = list()
-with open('/home/pi/pi-temp-sensor/devices.csv') as f:
+with open(home_dir + 'pi-temp-sensor/devices.csv') as f:
 	device_config = list(csv.reader(f))
 device_config = device_config[1:]
 
@@ -52,7 +53,7 @@ def read_temps(file):
 
 # Drives data collection
 # Checks for logfiles directory. If it doesn't exist it is created
-if not os.path.isdir('/home/pi/logfiles'):
+if not os.path.isdir(home_dir + 'logfiles'):
 	os.mkdir('logfiles')
 
 # Write to a csv file
@@ -63,7 +64,8 @@ output = list()
 
 # Iterates through the devices collected from the config file
 for file in device_config:
-	current_file = '/home/pi/logfiles/'+file[1]+'log.csv'
+	current_file = home_dir + 'logfiles/'+file[1]+'log.csv'
+
 	# Checks current device is connected to the pi
 	if not os.path.isfile(file[-1]):
 		print('Device ' + file[0] + ' (' + file[1] + ')  not found in ' + base_dir + '\n--Continuing to next sensor--')

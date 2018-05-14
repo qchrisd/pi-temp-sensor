@@ -10,14 +10,15 @@ import csv
 import os
 
 # Initiate some globals
-baseDir = '/sys/bus/w1/devices/'
+from globalVars import base_dir, home_dir
+#baseDir = '/sys/bus/w1/devices/'
 
 # Collects a list of currently connected devices
-currentDevs = [os.path.basename(x) for x in glob.glob(baseDir+'28*')]
+currentDevs = [os.path.basename(x) for x in glob.glob(base_dir+'28*')]
 
 # Collects the list of devices in the device config file
 deviceConfig = []
-with open('/home/pi/pi-temp-sensor/devices.csv') as f:
+with open(home_dir + 'pi-temp-sensor/devices.csv') as f:
 	deviceConfig = list(csv.reader(f))[1:]
 
 # Compares the list of serial numbers in the devices.csv file
