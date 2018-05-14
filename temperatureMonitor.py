@@ -103,5 +103,6 @@ for file in device_config:
 		else:
 			continue
 #			print('Current temp: '+str(temp_row[3])+' ---not written---\n')
+
 if output:
 	print(*output,sep='\n')
