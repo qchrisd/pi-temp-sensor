@@ -102,5 +102,6 @@ def printStatus():
 			print(device)
 	print()
 
-# Drives the output
-printStatus()
+# Drives the output if the file is called
+if __name__ == "__main__":
+	printStatus()
