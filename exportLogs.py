@@ -28,7 +28,7 @@ def exportLogs():
 	now = time.strftime('%H%M')
 
 	prepareExportDirectory(home_dir)
-	with open(home_dir+'exports/'+today+now+'export.csv', 'a+') as f:
+	with open(home_dir+'exports/export.csv', 'a+') as f:
 		header = ['Date','Time','Sensor','TempC']
 		writer = csv.writer(f)
 		reader = csv.reader(f)

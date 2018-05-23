@@ -8,6 +8,7 @@ status as terminal output.
 import glob
 import csv
 import os
+import paho.mqtt.client as mqtt
 
 # Initiate some globals
 from globalVars import base_dir, home_dir
@@ -77,31 +78,41 @@ def getConnectedConfigDevices():
 	return connected
 
 # Displays modularly the status of all temp devices associated with the master
-def printStatus():
+def getStatus():
+	output = ""
 	# Outputs the list of devices currently connected to the pi
 	print('\n-- Devices Currently Connected to the host --\n')
 	for row in getConnectedConfigDevices():
-		print(row)
+		output+=(str(row)+'\n')
 
 	# Outputs list of devices in the devices.csv list not connected
 	missingDevs = getMissingConfigDevices()
 	if not missingDevs:
-		print('\n-- All Devices Connected --\n')
+		output+=('\n-- All Devices Connected --\n')
 	else:
-		print('\n-- Devices Not Connected --\n')
+		output+=('\n-- Devices Not Connected --\n')
 		for device in missingDevs:
-			print(device)
+			output+=(str(device)+'\n')
 
 	# Outputs the list of devices not in the devices.csv list
 	newDevs = getNewDevices()
 	if not newDevs:
-		print('\n-- No New Devices Found --\n')
+		output+=('\n-- No New Devices Found --\n')
 	else:
-		print('\n-- New Unnamed Devices Found --\n')
+		output+=('\n-- New Unnamed Devices Found --\n')
+		output+=('\n')
 		for device in newDevs:
-			print(device)
-	print()
+			output+=(str(device)+'\n')
+	return output
+
+# Sends status through MQTT
+def publishMQTT(payload, topic):
+	client = mqtt.Client("status")
+	client.connect("localhost")
+	client.publish(topic, payload)
 
 # Drives the output if the file is called
 if __name__ == "__main__":
-	printStatus()
+	status = getStatus()
+	print(status)
+	publishMQTT(status, "ballomare/thermostat/status")
