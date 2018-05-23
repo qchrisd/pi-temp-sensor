@@ -66,6 +66,7 @@ output = list()
 # Connects to broker for MQTT publishing
 client = mqtt.Client("tempMonitor")
 client.connect("localhost")
+client.publish('ballomare/thermostat/lastrun',today+' '+now)
 
 # Iterates through the devices collected from the config file
 for file in device_config:
