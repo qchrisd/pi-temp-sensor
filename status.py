@@ -109,7 +109,7 @@ def getStatus():
 def publishMQTT(payload, topic):
 	client = mqtt.Client("status")
 	client.connect("localhost")
-	client.publish(topic, payload)
+	client.publish(topic, payload, retain=True)
 
 # Drives the output if the file is called
 if __name__ == "__main__":
