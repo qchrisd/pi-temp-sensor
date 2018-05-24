@@ -81,9 +81,9 @@ def getConnectedConfigDevices():
 def getStatus():
 	output = ""
 	# Outputs the list of devices currently connected to the pi
-	print('\n-- Devices Currently Connected to the host --\n')
+	output+='\n-- Connected Devices --\n\n'
 	for row in getConnectedConfigDevices():
-		output+=(str(row)+'\n')
+		output+=(str(row[0])+' ('+str(row[1])+')'+'\n')
 
 	# Outputs list of devices in the devices.csv list not connected
 	missingDevs = getMissingConfigDevices()
@@ -92,14 +92,14 @@ def getStatus():
 	else:
 		output+=('\n-- Devices Not Connected --\n')
 		for device in missingDevs:
-			output+=(str(device)+'\n')
+			output+=(str(device[0])+' ('+str(device[1])+')\n')
 
 	# Outputs the list of devices not in the devices.csv list
 	newDevs = getNewDevices()
 	if not newDevs:
 		output+=('\n-- No New Devices Found --\n')
 	else:
-		output+=('\n-- New Unnamed Devices Found --\n')
+		output+=('\n-- New Unnamed Devices --\n')
 		output+=('\n')
 		for device in newDevs:
 			output+=(str(device)+'\n')
