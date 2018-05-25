@@ -12,7 +12,8 @@ import csv
 import os
 import glob
 import time
-
+from exportLogs import *
+import paho.mqtt.client as mqtt
 # Adds w1-gpio and w1-therm modules to kernel
 #os.system('modprobe w1-gpio')
 #os.system('modprobe w1-therm')
@@ -62,6 +63,11 @@ header = ['Date', 'Time', 'Sensor', 'TempC']
 # Creates an output string to send via email
 output = list()
 
+# Connects to broker for MQTT publishing
+client = mqtt.Client("tempMonitor")
+client.connect("localhost")
+client.publish('ballomare/thermostat/lastrun', today+' '+now, retain = True)
+
 # Iterates through the devices collected from the config file
 for file in device_config:
 	current_file = home_dir + 'logfiles/'+file[1]+'log.csv'
@@ -97,6 +103,7 @@ for file in device_config:
 		f.seek(0)
 
 		# Writes temperature if +/-0.25 degrees from last recorded temp
+		client.publish('ballomare/thermostat/'+file[0],temp_row[3], retain = True)
 		if (temp_row[3] > last_temp+.25) | (temp_row[3] < last_temp-.25):
 			writer.writerow(temp_row)
 			output.append(temp_row)
@@ -106,3 +113,5 @@ for file in device_config:
 
 if output:
 	print(*output,sep='\n')
+	exportLogs()
+
