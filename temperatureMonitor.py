@@ -21,12 +21,12 @@ import paho.mqtt.client as mqtt
 # Initialize some globals
 now = time.strftime('%H:%M')
 today = time.strftime('%Y-%m-%d')
-from globalVars import base_dir, home_dir
+from globalVars import base_dir, home_dir, install_dir
 #base_dir = '/sys/bus/w1/devices/'
 
 # Collects the list of desired devices from the devices.csv file
 device_config = list()
-with open(home_dir + 'pi-temp-sensor/devices.csv') as f:
+with open(home_dir + install_dir + 'devices.csv') as f:
 	device_config = list(csv.reader(f))
 device_config = device_config[1:]
 
