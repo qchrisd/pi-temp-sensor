@@ -11,7 +11,7 @@ import os
 import paho.mqtt.client as mqtt
 
 # Initiate some globals
-from globalVars import base_dir, home_dir
+from globalVars import base_dir, home_dir, install_dir
 #baseDir = '/sys/bus/w1/devices/'
 
 # Collects a list of currently connected devices
@@ -22,7 +22,7 @@ def getCurrentDevices():
 # Collects the list of devices in the device config file
 def getConfigDevices():
 	deviceConfig = []
-	with open(home_dir + 'pi-temp-sensor/devices.csv') as f:
+	with open(home_dir + install_dir + 'devices.csv') as f:
 		deviceConfig = list(csv.reader(f))[1:]
 	return deviceConfig
 
