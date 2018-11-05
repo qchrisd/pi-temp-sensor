@@ -1,6 +1,6 @@
 ''' Commands for ballomare thermostat
 
-Methods should 
+Methods should be titled by topic, each level separated by an underscore.
 '''
 
 # Imports name of the module for dynamic method calling

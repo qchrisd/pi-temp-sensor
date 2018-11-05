@@ -12,3 +12,6 @@ home_dir = '/home/pi/'
 # install_dir is the name of the directory where the code is installed.
 # leave off the leading "/", but include the ending "/"
 install_dir = 'pi-temp-sensor/'
+
+# Home level of the MQTT channel
+base_channel = 'ballomare/'
