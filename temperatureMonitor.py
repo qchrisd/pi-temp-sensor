@@ -21,7 +21,7 @@ import paho.mqtt.client as mqtt
 # Initialize some globals
 now = time.strftime('%H:%M')
 today = time.strftime('%Y-%m-%d')
-from globalVars import base_dir, home_dir, install_dir, home_mqtt_channel
+from globalVars import base_dir, home_dir, install_dir, base_channel
 #base_dir = '/sys/bus/w1/devices/'
 
 # Collects the list of desired devices from the devices.csv file
@@ -66,7 +66,7 @@ output = list()
 # Connects to broker for MQTT publishing
 client = mqtt.Client("tempMonitor")
 client.connect("localhost")
-client.publish('ballomare/thermostat/lastrun', today+' '+now, retain = True)
+client.publish(base_channel+'thermostat/lastrun', today+' '+now, retain = True)
 
 # Iterates through the devices collected from the config file
 for file in device_config:
