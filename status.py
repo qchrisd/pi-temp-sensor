@@ -11,7 +11,7 @@ import os
 import paho.mqtt.client as mqtt
 
 # Initiate some globals
-from globalVars import base_dir, home_dir, install_dir
+from globalVars import base_dir, home_dir, install_dir, base_channel
 #baseDir = '/sys/bus/w1/devices/'
 
 # Collects a list of currently connected devices
@@ -115,4 +115,4 @@ def publishMQTT(payload, topic):
 if __name__ == "__main__":
 	status = getStatus()
 	print(status)
-	publishMQTT(status, "ballomare/thermostat/status")
+	publishMQTT(status, base_channel+"thermostat/status")

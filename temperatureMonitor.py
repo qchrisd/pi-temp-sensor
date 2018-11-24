@@ -21,7 +21,7 @@ import paho.mqtt.client as mqtt
 # Initialize some globals
 now = time.strftime('%H:%M')
 today = time.strftime('%Y-%m-%d')
-from globalVars import base_dir, home_dir, install_dir
+from globalVars import base_dir, home_dir, install_dir, base_channel
 #base_dir = '/sys/bus/w1/devices/'
 
 # Collects the list of desired devices from the devices.csv file
@@ -66,7 +66,7 @@ output = list()
 # Connects to broker for MQTT publishing
 client = mqtt.Client("tempMonitor")
 client.connect("localhost")
-client.publish('ballomare/thermostat/lastrun', today+' '+now, retain = True)
+client.publish(base_channel+'thermostat/lastrun', today+' '+now, retain = True)
 
 # Iterates through the devices collected from the config file
 for file in device_config:
@@ -103,7 +103,7 @@ for file in device_config:
 		f.seek(0)
 
 		# Writes temperature if +/-0.25 degrees from last recorded temp
-		client.publish('ballomare/thermostat/'+file[0],temp_row[3], retain = True)
+		client.publish(base_channel+'thermostat/'+file[0],temp_row[3], retain = True)
 		if (temp_row[3] > last_temp+.25) | (temp_row[3] < last_temp-.25):
 			writer.writerow(temp_row)
 			output.append(temp_row)
