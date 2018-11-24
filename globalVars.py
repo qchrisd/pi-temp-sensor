@@ -14,4 +14,4 @@ home_dir = '/home/pi/'
 install_dir = 'pi-temp-sensor/'
 
 # Home level of the MQTT channel
-base_channel = 'ballomare/'
+base_channel = 'rasqi/'

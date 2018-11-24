@@ -115,4 +115,4 @@ def publishMQTT(payload, topic):
 if __name__ == "__main__":
 	status = getStatus()
 	print(status)
-	publishMQTT(status, base_channel+"/thermostat/status")
+	publishMQTT(status, base_channel+"thermostat/status")

@@ -6,6 +6,7 @@ import glob
 import os
 import time
 import paho.mqtt.client as mqtt
+from globalVars import base_channel
 from commands import triage
 
 # Create the client
@@ -35,7 +36,7 @@ client.on_message = on_message
 client.connect('localhost', keepalive = 60)
 
 # Subscribes to the commands topic
-client.subscribe('ballomare/command/#')
+client.subscribe(base_channel+'command/#')
 
 # Starts the loop indefinitely to listen for commands
 client.loop_forever()
