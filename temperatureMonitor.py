@@ -2,7 +2,7 @@
 to achieve the necessary data organization. The latest run time for this file is:
 
 Probes		Time(s)		Date
-2		2.2		04-06-2016
+2		2.2		04-06-2018
 
 This driver is the current template for the Ballo Mare thermostat.
 '''
@@ -21,8 +21,7 @@ import paho.mqtt.client as mqtt
 # Initialize some globals
 now = time.strftime('%H:%M')
 today = time.strftime('%Y-%m-%d')
-from globalVars import base_dir, home_dir, install_dir, base_channel
-#base_dir = '/sys/bus/w1/devices/'
+from globalVars import base_dir, home_dir, install_dir, base_channel, logfile_dir
 
 # Collects the list of desired devices from the devices.csv file
 device_config = list()
@@ -54,8 +53,8 @@ def read_temps(file):
 
 # Drives data collection
 # Checks for logfiles directory. If it doesn't exist it is created
-if not os.path.isdir(home_dir + 'logfiles'):
-	os.mkdir('logfiles')
+if not os.path.isdir(home_dir + logfile_dir):
+	os.mkdir(logfile_dir)
 
 # Write to a csv file
 header = ['Date', 'Time', 'Sensor', 'TempC']
@@ -70,7 +69,7 @@ client.publish(base_channel+'thermostat/lastrun', today+' '+now, retain = True)
 
 # Iterates through the devices collected from the config file
 for file in device_config:
-	current_file = home_dir + 'logfiles/'+file[1]+'log.csv'
+	current_file = home_dir + logfile_dir +file[1]+'log.csv'
 
 	# Checks current device is connected to the pi
 	if not os.path.isfile(file[-1]):

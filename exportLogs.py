@@ -9,12 +9,13 @@ import os
 import glob
 import time
 
-# Checks for the target directory. If it does not exist it is created.
+# Checks for the target directory. If it does not exist it is created. Also looks for
+# old export files and deletes them if present.
 def prepareExportDirectory(home_dir, logfile_dir):
 	if not os.path.isdir(home_dir + logfile_dir):
 		os.mkdir(logfile_dir)
 		return
-	for f in glob.glob(home_dir + logfile_dir +'/*'):
+	for f in glob.glob(home_dir + logfile_dir +'/*Export.csv'):
 		os.remove(f)
 
 # Opens a new file based on the time of export and writes all log files in ./Logs into
@@ -28,7 +29,7 @@ def exportLogs():
 	logs = glob.glob(home_dir+'logfiles/*')
 	today = time.strftime('%Y%m%d-')
 	now = time.strftime('%H%M')
-	with open(home_dir+ logfile_dir +'/AllLogfiles.csv', 'a+') as f:
+	with open(home_dir+ logfile_dir +'/'+ today + now +'Export.csv', 'a+') as f:
 		header = ['Date','Time','Sensor','TempC']
 		writer = csv.writer(f)
 		reader = csv.reader(f)
